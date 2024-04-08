@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Neumorphic Spin Game</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+        background-color: #e0e5ec;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
+    .container {
+        background: #e0e5ec;
+        border-radius: 30px;
+        box-shadow: 20px 20px 60px #b8c1cc, -20px -20px 60px #ffffff;
+        padding: 40px;
+    }
+    h1 {
+        color: #4d5358;
+        margin-bottom: 30px;
+    }
+    label {
+        color: #4d5358;
+        margin-bottom: 10px;
+    }
+    textarea {
+        width: 300px;
+        height: 150px;
+        padding: 10px;
+        margin-bottom: 20px;
+        border: none;
+        background: #e0e5ec;
+        border-radius: 20px;
+        box-shadow: inset 10px 10px 20px #b8c1cc, inset -10px -10px 20px #ffffff;
+        resize: none;
+    }
+    .circle-card {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        background: #e0e5ec;
+        box-shadow: 10px 10px 20px #b8c1cc, -10px -10px 20px #ffffff;
+        margin: 0 auto 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    button {
+        padding: 15px 30px;
+        font-size: 18px;
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        cursor: pointer;
+        border-radius: 10px;
+        box-shadow: 10px 10px 20px #b8c1cc, -10px -10px 20px #ffffff;
+        transition: background-color 0.3s ease;
+    }
+    button:hover {
+        background-color: #45a049;
+    }
+    #output {
+        font-size: 24px;
+        color: #4d5358;
+        margin-top: 20px;
+    }
+</style>
+</head>
+<body>
+<div class="container">
+    <h1>Spin To Decide</h1><h2>SPINDCD</h2>
+    <label for="options">Enter your options (separated by new lines):</label><br><br>
+    <textarea id="options" rows="5" cols="30"></textarea>
+    <br>
+    <div class="circle-card" id="spinner"></div>
+    <div id="output"></div>
+    <br>
+    <br>
+    <button onclick="spin()">Spin</button>
+    
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.7.6/lottie.min.js"></script>
+<script>
+    function spin() {
+        var options = document.getElementById("options").value.split("\n").filter(Boolean);
+        var index = Math.floor(Math.random() * options.length);
+        var result = options[index];
+        
+        var spinner = document.getElementById("spinner");
+        var animationData = {
+            container: spinner,
+            renderer: 'svg',
+            loop: false,
+            autoplay: true,
+            path: 'https://lottie.host/31950f0f-b6dc-48a0-857e-0273ab132abe/rNaGTNfBRu.json' // Lottie animation URL
+        };
+        var anim = lottie.loadAnimation(animationData);
+        
+        anim.addEventListener('complete', function() {
+            document.getElementById("output").innerText = result;
+            anim.destroy(); // Hide the animation
+        });
+    }
+</script>
+</body>
+</html>
